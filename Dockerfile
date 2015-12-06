@@ -24,14 +24,14 @@ RUN apt-get clean \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /var/www/html
-
 # Copy the directory from the native host into the container. (Either from the local dev machine or GitHub, depending on where this container is built.)
 COPY ./phpbb /var/www/html/public/discuss
 
+WORKDIR /var/www/html/public/discuss
+
 RUN composer install --prefer-source --no-interaction --no-progress \
-    && chown -R www-data:www-data \
-    && chmod -R 775 /var/www/html/public/discuss/cache
+    && chown -R www-data:www-data . \
+    && chmod -R 777 cache files images/avatars/upload store
 
 VOLUME /var/www/html/public/discuss
 
