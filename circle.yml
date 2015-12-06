@@ -5,16 +5,13 @@ machine:
 checkout:
   post:
     - git clone https://github.com/WarriorMachines/omnificent.git
+    - chmod u+x ./omnificent/AWS/ECS/deploy.sh
 
 dependencies:
   pre:
     - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
 
-    - sudo pip install --upgrade awscli
-    - aws --version
-
-  post:
-    - chmod u+x ./omnificent/AWS/ECS/deploy.sh
+    - sudo pip install --upgrade awscli && aws --version
 
 test:
   pre:
