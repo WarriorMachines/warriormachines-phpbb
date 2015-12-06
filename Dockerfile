@@ -25,7 +25,7 @@ RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy the directory from the native host into the container. (Either from the local dev machine or GitHub, depending on where this container is built.)
-COPY ./phpbb /var/www/html/public/discuss
+COPY . /var/www/html/public/discuss
 
 WORKDIR /var/www/html/public/discuss
 
