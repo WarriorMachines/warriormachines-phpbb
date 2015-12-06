@@ -1,0 +1,39 @@
+machine:
+  services:
+    - docker
+
+checkout:
+  post:
+    - git clone https://github.com/WarriorMachines/omnificent.git
+
+dependencies:
+  pre:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS -e $DOCKER_EMAIL
+
+    - sudo pip install --upgrade awscli
+    - aws --version
+
+  post:
+    - chmod u+x ./omnificent/AWS/ECS/deploy.sh
+
+test:
+  pre:
+    - docker build --tag="warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM" .
+    - docker build --tag="warriormachines/warriormachines-phpbb:latest" .
+
+deployment:
+  staging:
+    branch: [dev]
+    commands:
+      - docker push warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM
+      - docker push warriormachines/warriormachines-phpbb:latest
+
+      - ./omnificent/AWS/ECS/deploy.sh latest web-staging-cluster us-west-2 warriormachines-laravel-staging-service ./omnificent/AWS/ECS/task-definitions/warriormachines-laravel/warriormachines-laravel-staging-task-definition.json warriormachines-laravel-staging-task-definition warriormachines-laravel-staging-task-definition
+
+  production:
+    branch: [master]
+    commands:
+      - docker push warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM
+      - docker push warriormachines/warriormachines-phpbb:latest
+
+      - ./omnificent/AWS/ECS/deploy.sh latest web-production-cluster us-west-2 warriormachines-laravel-production-service ./omnificent/AWS/ECS/task-definitions/warriormachines-laravel/warriormachines-laravel-production-task-definition.json warriormachines-laravel-production-task-definition warriormachines-laravel-production-task-definition
