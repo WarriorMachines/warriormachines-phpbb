@@ -15,8 +15,8 @@ dependencies:
 
 test:
   pre:
-    - docker build --tag="warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM" .
-    - docker build --tag="warriormachines/warriormachines-phpbb:latest" .
+    - docker build --tag="warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM" ./
+    - docker build --tag="warriormachines/warriormachines-phpbb:latest" ./
 
 deployment:
   staging:
