@@ -1,5 +1,5 @@
 # warriormachines-phpbb
 
 ```shell
-docker build --rm --force-rm --tag="warriormachines/warriormachines-phpbb" .
+docker build --rm --force-rm --tag="warriormachines/warriormachines-phpbb" ./
 ```
