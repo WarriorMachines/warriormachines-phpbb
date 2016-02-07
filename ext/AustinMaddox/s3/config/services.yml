@@ -1,0 +1,5 @@
+services:
+    AustinMaddox.s3.listener:
+        class: AustinMaddox\s3\event\listener
+        tags:
+            - { name: event.listener }
