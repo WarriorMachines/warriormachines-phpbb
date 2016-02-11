@@ -97,24 +97,24 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/forums">Forums</a>
-                </li>
-                <li class="nav-item disabled">
-                    <a class="nav-link">Gallery</a>
-                </li>
-                <li class="nav-item disabled">
-                    <a class="nav-link">About</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Forums</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="viewforum.php?f=13">Truck & SUV</a>
+                        <a class="dropdown-item" href="viewforum.php?f=11">Street Rides</a>
+                        <a class="dropdown-item" href="viewforum.php?f=8">Classic</a>
+                        <a class="dropdown-item" href="viewforum.php?f=15">Power Sports</a>
+                    </div>
                 </li>
                 <!-- EVENT overall_header_searchbox_before -->
                 <!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
                 <li class="nav-item">
                     <a class="nav-link" href="{U_SEARCH}">{L_SEARCH}</a>
                 </li>
-                <!-- ENDIF -->
-                <li class="nav-item disabled">
-                    <a class="nav-link">Contact</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{U_FAQ}">{L_FAQ}</a>
                 </li>
+                <!-- ENDIF -->
                 <li class="nav-item pull-xs-right">
                     <a href="/ucp.php?mode=login" class="btn btn-success" role="button">Log in</a>
                 </li>
