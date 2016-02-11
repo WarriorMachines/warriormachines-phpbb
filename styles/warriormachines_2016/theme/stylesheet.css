@@ -1,0 +1,17 @@
+/*  phpBB3 Style Sheet
+    --------------------------------------------------------------
+	Style name:			prosilver (the default phpBB 3.1.x style)
+	Based on style:		
+	Original author:	Tom Beddard ( http://www.subblue.com/ )
+	Modified by:		phpBB Limited ( https://www.phpbb.com/ )
+    --------------------------------------------------------------
+*/
+
+@import url("../../prosilver/theme/common.css");
+@import url("../../prosilver/theme/links.css");
+@import url("../../prosilver/theme/content.css");
+@import url("../../prosilver/theme/buttons.css");
+@import url("../../prosilver/theme/cp.css");
+@import url("../../prosilver/theme/forms.css");
+@import url("../../prosilver/theme/colours.css");
+@import url("../../prosilver/theme/imageset.css");

@@ -17,5 +17,6 @@
 /store/*
 /styles/*
 !/styles/prosilver
+!/styles/warriormachines_2016
 !/styles/all
 /vendor
