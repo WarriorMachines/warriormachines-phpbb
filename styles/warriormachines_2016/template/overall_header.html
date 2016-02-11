@@ -106,6 +106,12 @@
                 <li class="nav-item disabled">
                     <a class="nav-link">About</a>
                 </li>
+                <!-- EVENT overall_header_searchbox_before -->
+                <!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{U_SEARCH}">{L_SEARCH}</a>
+                </li>
+                <!-- ENDIF -->
                 <li class="nav-item disabled">
                     <a class="nav-link">Contact</a>
                 </li>
@@ -117,41 +123,27 @@
     </div>
 </nav>
 
-<div class="container">
-    <a id="top" class="anchor" accesskey="t"></a>
-    <div id="page-header">
-        <div class="headerbar" role="banner">
-            <div class="inner">
-
-                <div id="site-description">
-                    <a id="logo" class="logo" href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->"
-                       title="<!-- IF U_SITE_HOME -->{L_SITE_HOME}<!-- ELSE -->{L_INDEX}<!-- ENDIF -->">{SITE_LOGO_IMG}</a>
-                    <h1>{SITENAME}</h1>
-                    <p>{SITE_DESCRIPTION}</p>
-                    <p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
-                </div>
-
-                <!-- EVENT overall_header_searchbox_before -->
-                <!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
-                <div id="search-box" class="search-box search-header" role="search">
-                    <form action="{U_SEARCH}" method="get" id="search">
-                        <fieldset>
-                            <input name="keywords" id="keywords" type="search" maxlength="128" title="{L_SEARCH_KEYWORDS}" class="inputbox search tiny" size="20"
-                                   value="{SEARCH_WORDS}" placeholder="{L_SEARCH_MINI}"/>
-                            <button class="button icon-button search-icon" type="submit" title="{L_SEARCH}">{L_SEARCH}</button>
-                            <a href="{U_SEARCH}" class="button icon-button search-adv-icon" title="{L_SEARCH_ADV}">{L_SEARCH_ADV}</a>
-                            {S_SEARCH_HIDDEN_FIELDS}
-                        </fieldset>
-                    </form>
-                </div>
-                <!-- ENDIF -->
-
+<div class="container-fluid bg-inverse">
+    <div class="container">
+        <a id="top" class="anchor" accesskey="t"></a>
+        <div class="row">
+            <div class="col-sm-2">
+                <a id="logo" class="logo" href="<!-- IF U_SITE_HOME -->{U_SITE_HOME}<!-- ELSE -->{U_INDEX}<!-- ENDIF -->"
+                   title="<!-- IF U_SITE_HOME -->{L_SITE_HOME}<!-- ELSE -->{L_INDEX}<!-- ENDIF -->">{SITE_LOGO_IMG}</a>
+            </div>
+            <div class="col-sm-7">
+                <h1>{SITENAME}</h1>
+                <p>{SITE_DESCRIPTION}</p>
+                <p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
             </div>
         </div>
-        <!-- EVENT overall_header_navbar_before -->
-        <!-- INCLUDE navbar_header.html -->
-    </div><!-- /#page-header -->
-</div>
+    </div><!-- /.container -->
+</div><!-- /.container-fluid -->
+
+<div class="container">
+    <!-- EVENT overall_header_navbar_before -->
+    <!-- INCLUDE navbar_header.html -->
+</div><!-- /.container -->
 
 <!-- EVENT overall_header_page_body_before -->
 
