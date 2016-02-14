@@ -1,5 +1,3 @@
-.idea
-
 *~
 /phpunit.xml
 /cache/*
@@ -17,5 +15,10 @@
 /store/*
 /styles/*
 !/styles/prosilver
+!/styles/warriormachines_2016
 !/styles/all
 /vendor
+
+/.idea
+/node_modules
+/bower_components
