@@ -1,19 +1,10 @@
 <!-- EVENT overall_footer_content_after -->
 </div><!-- /#page-body -->
 
-</div>
-<div class="col-sm-2 bg-danger">
-    three
-</div>
-</div><!-- /.container-fluid -->
-
 <!-- EVENT overall_footer_page_body_after -->
 
 <div class="container-fluid bg-inverse p-y-2">
     <div class="row">
-        <div class="col-sm-1 bg-success">
-            one
-        </div>
         <div class="col-sm-9">
             <div id="page-footer" role="contentinfo">
                 <!-- INCLUDE navbar_footer.html -->
@@ -42,17 +33,16 @@
                     <div class="alert_text"></div>
                 </div>
             </div><!-- /#page-footer -->
+            <div>
+                <a id="bottom" class="anchor" accesskey="z"></a>
+                <!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
+            </div>
         </div>
-        <div class="col-sm-2 bg-danger">
-            three
+        <div class="col-sm-3 bg-danger">
+            two
         </div>
     </div>
 </div><!-- /.container-fluid -->
-
-<div>
-    <a id="bottom" class="anchor" accesskey="z"></a>
-    <!-- IF not S_IS_BOT -->{RUN_CRON_TASK}<!-- ENDIF -->
-</div>
 
 <script type="text/javascript" src="{T_JQUERY_LINK}"></script>
 <!-- IF S_ALLOW_CDN -->

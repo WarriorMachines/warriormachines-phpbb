@@ -130,45 +130,42 @@
         <!--<a id="logo" class="logo" href="&lt;!&ndash; IF U_SITE_HOME &ndash;&gt;{U_SITE_HOME}&lt;!&ndash; ELSE &ndash;&gt;{U_INDEX}&lt;!&ndash; ENDIF &ndash;&gt;"-->
         <!--title="&lt;!&ndash; IF U_SITE_HOME &ndash;&gt;{L_SITE_HOME}&lt;!&ndash; ELSE &ndash;&gt;{L_INDEX}&lt;!&ndash; ENDIF &ndash;&gt;">{SITE_LOGO_IMG}</a>-->
         <!--</div>-->
-        <div class="col-sm-12">
+        <div class="col-sm-4">
             <h1>{SITENAME}</h1>
             <p>{SITE_DESCRIPTION}</p>
             <p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+        </div>
+        <div class="col-sm-5 bg-info">
+            two
+        </div>
+        <div class="col-sm-3 bg-danger">
+            three
         </div>
     </div>
 </div><!-- /.container-fluid -->
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-1 bg-success">
-            one
-        </div>
         <div class="col-sm-9">
             <!-- EVENT overall_header_navbar_before -->
             <!-- INCLUDE navbar_header.html -->
         </div>
-        <div class="col-sm-2 bg-danger">
-            three
+        <div class="col-sm-3 bg-danger">
+            two
         </div>
     </div>
 </div><!-- /.container-fluid -->
 
 <!-- EVENT overall_header_page_body_before -->
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-1 bg-success">
-            one
+<a id="start_here" class="anchor"></a>
+<div id="page-body" role="main">
+    <!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN and (U_MCP or U_ACP) -->
+    <div id="information" class="rules">
+        <div class="inner">
+            <strong>{L_INFORMATION}{L_COLON}</strong> {L_BOARD_DISABLED}
         </div>
-        <div class="col-sm-9">
-            <a id="start_here" class="anchor"></a>
-            <div id="page-body" role="main">
-                <!-- IF S_BOARD_DISABLED and S_USER_LOGGED_IN and (U_MCP or U_ACP) -->
-                <div id="information" class="rules">
-                    <div class="inner">
-                        <strong>{L_INFORMATION}{L_COLON}</strong> {L_BOARD_DISABLED}
-                    </div>
-                </div>
-                <!-- ENDIF -->
+    </div>
+    <!-- ENDIF -->
 
-                <!-- EVENT overall_header_content_before -->
+    <!-- EVENT overall_header_content_before -->
