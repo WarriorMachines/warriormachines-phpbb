@@ -30,11 +30,6 @@
             <!-- ENDIF -->
 
             <!-- IF S_HAS_SUBFORUM -->
-            <!-- IF not S_IS_BOT and U_MARK_FORUMS -->
-            <div class="action-bar compact">
-                <a href="{U_MARK_FORUMS}" class="mark-read rightside" data-ajax="mark_forums_read">{L_MARK_SUBFORUMS_READ}</a>
-            </div>
-            <!-- ENDIF -->
             <!-- INCLUDE forumlist_body.html -->
             <!-- ENDIF -->
 
@@ -68,8 +63,6 @@
                 <!-- ENDIF -->
 
                 <div class="pagination">
-                    <!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow --><a href="{U_MARK_TOPICS}" class="mark" accesskey="m"
-                                                                               data-ajax="mark_topics_read">{L_MARK_TOPICS_READ}</a> &bull; <!-- ENDIF -->
                     {TOTAL_TOPICS}
                     <!-- IF .pagination -->
                     <!-- INCLUDE pagination.html -->
@@ -295,7 +288,17 @@
 
 </div>
 <div class="col-sm-3 bg-danger">
-    two
+    <!-- IF S_HAS_SUBFORUM -->
+    <!-- IF not S_IS_BOT and U_MARK_FORUMS -->
+        <a href="{U_MARK_FORUMS}" data-ajax="mark_forums_read">{L_MARK_SUBFORUMS_READ}</a>
+    <!-- ENDIF -->
+    <!-- ENDIF -->
+
+    <!-- IF S_DISPLAY_POST_INFO or .pagination or TOTAL_POSTS or TOTAL_TOPICS -->
+    <!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow -->
+    <a href="{U_MARK_TOPICS}" accesskey="m" data-ajax="mark_topics_read">{L_MARK_TOPICS_READ}</a>
+    <!-- ENDIF -->
+    <!-- ENDIF -->
 </div>
 </div>
 </div><!-- /.container-fluid -->
