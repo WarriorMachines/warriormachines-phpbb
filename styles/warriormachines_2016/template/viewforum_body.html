@@ -34,40 +34,46 @@
             <!-- ENDIF -->
 
             <!-- IF S_DISPLAY_POST_INFO or .pagination or TOTAL_POSTS or TOTAL_TOPICS -->
-            <div class="action-bar top">
+            <div class="row">
 
-                <!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
-                <div class="buttons">
+                <div class="col-sm-2">
+                    <!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
                     <!-- EVENT viewforum_buttons_top_before -->
 
-                    <a href="{U_POST_NEW_TOPIC}" class="button icon-button <!-- IF S_IS_LOCKED -->locked-icon<!-- ELSE -->post-icon<!-- ENDIF -->"
-                       title="<!-- IF S_IS_LOCKED -->{L_FORUM_LOCKED}<!-- ELSE -->{L_POST_TOPIC}<!-- ENDIF -->">
-                        <!-- IF S_IS_LOCKED -->{L_BUTTON_FORUM_LOCKED}<!-- ELSE -->{L_BUTTON_NEW_TOPIC}<!-- ENDIF -->
-                    </a>
+                    <!-- IF S_IS_LOCKED -->
+                    <button class="btn btn-danger disabled" title="{L_FORUM_LOCKED}"><i class="fa fa-lock"></i> {L_BUTTON_FORUM_LOCKED}</button>
+                    <!-- ELSE -->
+                    <a href="{U_POST_NEW_TOPIC}" class="btn btn-success" title="{L_POST_TOPIC}"><i class="fa fa-plus-circle"></i> {L_BUTTON_NEW_TOPIC}</a>
+                    <!-- ENDIF -->
 
                     <!-- EVENT viewforum_buttons_top_after -->
+                    <!-- ENDIF -->
                 </div>
-                <!-- ENDIF -->
 
-                <!-- IF S_DISPLAY_SEARCHBOX -->
-                <div class="search-box" role="search">
+                <div class="col-sm-5">
+                    <!-- IF S_DISPLAY_SEARCHBOX -->
                     <form method="get" id="forum-search" action="{S_SEARCHBOX_ACTION}">
-                        <fieldset>
-                            <input class="inputbox search tiny" type="search" name="keywords" id="search_keywords" size="20" placeholder="{L_SEARCH_FORUM}"/>
-                            <button class="button icon-button search-icon" type="submit" title="{L_SEARCH}">{L_SEARCH}</button>
-                            <a href="{U_SEARCH}" class="button icon-button search-adv-icon" title="{L_SEARCH_ADV}">{L_SEARCH_ADV}</a>
-                            {S_SEARCH_LOCAL_HIDDEN_FIELDS}
-                        </fieldset>
+                        <div class="input-group">
+                            <input type="search" name="keywords" id="search_keywords" class="form-control" placeholder="{L_SEARCH_FORUM}">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-secondary" title="{L_SEARCH}"><i class="fa fa-search"></i></button>
+                                <a href="{U_SEARCH}" type="button" class="btn btn-secondary" title="{L_SEARCH_ADV}"><i class="fa fa-cog"></i></a>
+                            </div>
+                        </div>
+                        {S_SEARCH_LOCAL_HIDDEN_FIELDS}
                     </form>
+                    <!-- ENDIF -->
                 </div>
-                <!-- ENDIF -->
 
-                <div class="pagination">
-                    {TOTAL_TOPICS}
+                <div class="col-sm-2 text-xs-right">
+                    <span class="label label-default">{TOTAL_TOPICS}</span>
+                </div>
+
+                <div class="col-sm-3 text-xs-right">
                     <!-- IF .pagination -->
                     <!-- INCLUDE pagination.html -->
                     <!-- ELSE -->
-                    &bull; {PAGE_NUMBER}
+                    {PAGE_NUMBER}
                     <!-- ENDIF -->
                 </div>
 
@@ -242,31 +248,29 @@
             <!-- ENDIF -->
         </fieldset>
     </form>
-    <hr/>
     <!-- ENDIF -->
 
     <!-- IF .topicrow and not S_DISPLAY_ACTIVE -->
-    <div class="action-bar bottom">
-        <!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
-        <div class="buttons">
+    <div class="row">
+        <div class="col-sm-2">
+            <!-- IF not S_IS_BOT and S_DISPLAY_POST_INFO -->
             <!-- EVENT viewforum_buttons_bottom_before -->
 
-            <a href="{U_POST_NEW_TOPIC}" class="button icon-button <!-- IF S_IS_LOCKED -->locked-icon<!-- ELSE -->post-icon<!-- ENDIF -->"
-               title="<!-- IF S_IS_LOCKED -->{L_FORUM_LOCKED}<!-- ELSE -->{L_POST_TOPIC}<!-- ENDIF -->">
-                <!-- IF S_IS_LOCKED -->{L_BUTTON_FORUM_LOCKED}<!-- ELSE -->{L_BUTTON_NEW_TOPIC}<!-- ENDIF -->
-            </a>
+            <!-- IF S_IS_LOCKED -->
+            <button class="btn btn-danger disabled" title="{L_FORUM_LOCKED}"><i class="fa fa-lock"></i> {L_BUTTON_FORUM_LOCKED}</button>
+            <!-- ELSE -->
+            <a href="{U_POST_NEW_TOPIC}" class="btn btn-success" title="{L_POST_TOPIC}"><i class="fa fa-plus-circle"></i> {L_BUTTON_NEW_TOPIC}</a>
+            <!-- ENDIF -->
 
             <!-- EVENT viewforum_buttons_bottom_after -->
+            <!-- ENDIF -->
         </div>
-        <!-- ENDIF -->
 
-        <div class="pagination">
-            <!-- IF not S_IS_BOT and U_MARK_TOPICS and .topicrow --><a href="{U_MARK_TOPICS}" data-ajax="mark_topics_read">{L_MARK_TOPICS_READ}</a> &bull; <!-- ENDIF -->
-            {TOTAL_TOPICS}
+        <div class="col-sm-offset-6 col-sm-4 text-xs-right">
             <!-- IF .pagination -->
             <!-- INCLUDE pagination.html -->
             <!-- ELSE -->
-            &bull; {PAGE_NUMBER}
+            {PAGE_NUMBER}
             <!-- ENDIF -->
         </div>
     </div>
@@ -290,7 +294,7 @@
 <div class="col-sm-3 bg-danger">
     <!-- IF S_HAS_SUBFORUM -->
     <!-- IF not S_IS_BOT and U_MARK_FORUMS -->
-        <a href="{U_MARK_FORUMS}" data-ajax="mark_forums_read">{L_MARK_SUBFORUMS_READ}</a>
+    <a href="{U_MARK_FORUMS}" data-ajax="mark_forums_read">{L_MARK_SUBFORUMS_READ}</a>
     <!-- ENDIF -->
     <!-- ENDIF -->
 

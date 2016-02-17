@@ -162,41 +162,6 @@ dl.details dd {
 	color: #1198D9;
 }
 
-/* Pagination
----------------------------------------- */
-
-.pagination li a {
-	background-color: #ECEDEE;
-	border-color: #B4BAC0;
-	color: #5C758C;
-}
-
-.pagination li.ellipsis span {
-	background-color: transparent;
-	color:	#000000;
-}
-
-.pagination li.active span {
-	background-color: #4692BF;
-	border-color: #4692BF;
-	color: #FFFFFF;
-}
-
-.pagination li a:hover, .pagination .dropdown-visible a.dropdown-trigger, .nojs .pagination .dropdown-container:hover a.dropdown-trigger {
-	background-color: #368AD2;
-	border-color: #368AD2;
-	color: #FFFFFF;
-}
-
-.pagination li.next a, .pagination li.previous a, .pagination li.page-jump a {
-	background-image: url("./images/icons_pagination.png");
-}
-
-/* Pagination in viewforum for multipage topics */
-.row .pagination {
-	background-image: url("./images/icon_pages.gif");
-}
-
 /* Miscellaneous styles
 ---------------------------------------- */
 

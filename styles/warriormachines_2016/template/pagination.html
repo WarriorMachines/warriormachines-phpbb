@@ -1,0 +1,47 @@
+<nav>
+    <ul class="pagination">
+        <!-- IF BASE_URL and TOTAL_PAGES > 6 -->
+        <li class="dropdown-container dropdown-button-control dropdown-page-jump page-jump">
+            <a href="#" class="dropdown-trigger" title="{L_JUMP_TO_PAGE_CLICK}" role="button">{PAGE_NUMBER}</a>
+            <div class="dropdown hidden">
+                <div class="pointer">
+                    <div class="pointer-inner"></div>
+                </div>
+                <ul class="dropdown-contents">
+                    <li>{L_JUMP_TO_PAGE}{L_COLON}</li>
+                    <li class="page-jump-form">
+                        <input type="number" name="page-number" min="1" maxlength="6" title="{L_JUMP_PAGE}" class="inputbox tiny" data-per-page="{PER_PAGE}"
+                               data-base-url="{BASE_URL|e('html_attr')}" data-start-name="{START_NAME}"/>
+                        <input class="button2" value="{L_GO}" type="button"/>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <!-- ENDIF -->
+        <!-- BEGIN pagination -->
+        <!-- IF pagination.S_IS_PREV -->
+        <li class="page-item">
+            <a class="page-link" href="{pagination.PAGE_URL}" aria-label="Previous" rel="prev" role="button">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <!-- ELSEIF pagination.S_IS_CURRENT -->
+        <li class="page-item active">
+            <span class="page-link">{pagination.PAGE_NUMBER} <span class="sr-only">(current)</span></span>
+        </li>
+        <!-- ELSEIF pagination.S_IS_ELLIPSIS -->
+        <li class="page-item" role="separator"><a class="page-link" href="#">{L_ELLIPSIS}</a></li>
+        <!-- ELSEIF pagination.S_IS_NEXT -->
+        <li class="page-item">
+            <a class="page-link" href="{pagination.PAGE_URL}" aria-label="Next" rel="next" role="button">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">{L_NEXT}</span>
+            </a>
+        </li>
+        <!-- ELSE -->
+        <li class="page-item"><a class="page-link" href="{pagination.PAGE_URL}">{pagination.PAGE_NUMBER}</a></li>
+        <!-- ENDIF -->
+        <!-- END pagination -->
+    </ul>
+</nav>
