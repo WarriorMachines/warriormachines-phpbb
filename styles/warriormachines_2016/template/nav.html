@@ -1,14 +1,19 @@
+<!-- EVENT overall_header_navigation_prepend -->
+<!-- EVENT overall_header_navbar_before -->
 <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapsing-navbar">
         &#9776;
     </button>
-    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+    <div class="collapse navbar-toggleable-xs" id="collapsing-navbar">
         <!--<a class="navbar-brand" href="/">WM</a>-->
         <ul class="nav navbar-nav">
 
             <li class="nav-item active">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
+
+            <!-- EVENT navbar_header_quick_links_before -->
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Forums</a>
                 <div class="dropdown-menu">
@@ -19,10 +24,31 @@
                 </div>
             </li>
 
-            <!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
-            <li class="nav-item">
+            <!-- IF S_DISPLAY_SEARCH -->
+            <li class="nav-item dropdown">
                 <!-- EVENT overall_header_searchbox_before -->
-                <a class="nav-link" href="{U_SEARCH}">{L_SEARCH}</a>
+
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{L_SEARCH}</a>
+                <div class="dropdown-menu">
+                    <!-- IF not S_IN_SEARCH -->
+                    <a href="{U_SEARCH}" class="dropdown-item">{L_SEARCH}</a>
+                    <!-- ENDIF -->
+
+                    <!-- IF S_REGISTERED_USER -->
+                    <a href="{U_SEARCH_SELF}" class="dropdown-item">{L_SEARCH_SELF}</a>
+                    <!-- ENDIF -->
+
+                    <!-- IF S_USER_LOGGED_IN -->
+                    <a href="{U_SEARCH_NEW}" class="dropdown-item">{L_SEARCH_NEW}</a>
+                    <!-- ENDIF -->
+
+                    <!-- IF S_LOAD_UNREADS -->
+                    <a href="{U_SEARCH_UNREAD}" class="dropdown-item">{L_SEARCH_UNREAD}</a>
+                    <!-- ENDIF -->
+
+                    <a href="{U_SEARCH_UNANSWERED}" class="dropdown-item">{L_SEARCH_UNANSWERED}</a>
+                    <a href="{U_SEARCH_ACTIVE_TOPICS}" class="dropdown-item">{L_SEARCH_ACTIVE_TOPICS}</a>
+                </div>
             </li>
             <!-- ENDIF -->
 
@@ -30,13 +56,32 @@
                 <a class="nav-link" href="{U_FAQ}">{L_FAQ}</a>
             </li>
 
+            <!-- IF not S_IS_BOT and (S_DISPLAY_MEMBERLIST or U_TEAM) -->
+
+            <!-- IF S_DISPLAY_MEMBERLIST -->
+            <li class="nav-item">
+                <a href="{U_MEMBERLIST}" class="nav-link">{L_MEMBERLIST}</a>
+            </li>
+            <!-- ENDIF -->
+
+            <!-- IF U_TEAM -->
+            <li class="nav-item">
+                <a href="{U_TEAM}" class="nav-link">{L_THE_TEAM}</a>
+            </li>
+            <!-- ENDIF -->
+
+            <!-- ENDIF -->
+
             <li class="nav-item">
                 <a class="nav-link" href="{U_CONTACT_US}">{L_CONTACT_US}</a>
             </li>
 
             <li class="nav-item pull-xs-right">
-                <a href="/ucp.php?mode=login" class="btn btn-success" role="button">Log in</a>
+                <a href="{U_LOGIN_LOGOUT}" class="btn btn-success" role="button" title="{L_LOGIN_LOGOUT}" accesskey="x">{L_LOGIN_LOGOUT}</a>
             </li>
+
+            <!-- EVENT navbar_header_quick_links_after -->
         </ul>
     </div>
 </nav>
+<!-- EVENT overall_header_navigation_append -->
