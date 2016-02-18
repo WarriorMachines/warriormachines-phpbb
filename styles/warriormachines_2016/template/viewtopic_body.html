@@ -65,18 +65,18 @@
                 </div>
 
                 <div class="col-sm-1">
-                    <!-- IF U_VIEW_UNREAD_POST and not S_IS_BOT -->
-                    <a href="{U_VIEW_UNREAD_POST}" class="mark">{L_VIEW_UNREAD_POST}</a>
-                    <!-- ENDIF -->
-                </div>
-
-                <div class="col-sm-1">
                     <!-- IF TOTAL_POSTS -->
                     <span class="label label-default">{TOTAL_POSTS}</span>
                     <!-- ENDIF -->
                 </div>
 
-                <div class="col-sm-4 text-xs-right">
+                <div class="col-sm-2">
+                    <!-- IF U_VIEW_UNREAD_POST and not S_IS_BOT -->
+                    <a href="{U_VIEW_UNREAD_POST}">{L_VIEW_UNREAD_POST}</a>
+                    <!-- ENDIF -->
+                </div>
+
+                <div class="col-sm-3 text-xs-right">
                     <!-- IF .pagination -->
                     <!-- INCLUDE pagination.html -->
                     <!-- ELSE -->
@@ -414,23 +414,6 @@
         <hr/>
         <!-- ENDIF -->
 
-        <!-- IF .quickmod -->
-        <div class="dropdown-container dropdown-container-{S_CONTENT_FLOW_BEGIN} dropdown-up dropdown-{S_CONTENT_FLOW_END} dropdown-button-control" id="quickmod">
-            <span title="{L_QUICK_MOD}" class="dropdown-trigger button icon-button modtools-icon dropdown-select">{L_QUICK_MOD}</span>
-            <div class="dropdown hidden">
-                <div class="pointer">
-                    <div class="pointer-inner"></div>
-                </div>
-                <ul class="dropdown-contents">
-                    <!-- BEGIN quickmod -->
-                    <!-- DEFINE $QUICKMOD_AJAX = (quickmod.VALUE in ['lock', 'unlock', 'delete_topic', 'restore_topic', 'make_normal', 'make_sticky', 'make_announce', 'make_global']) -->
-                    <li><a href="{quickmod.LINK}"<!-- IF $QUICKMOD_AJAX --> data-ajax="true" data-refresh="true"<!-- ENDIF -->>{quickmod.TITLE}</a></li>
-                    <!-- END quickmod -->
-                </ul>
-            </div>
-        </div>
-        <!-- ENDIF -->
-
         <!-- EVENT viewtopic_body_topic_actions_before -->
         <div class="row">
             <div class="col-sm-2">
@@ -454,7 +437,23 @@
                 <!-- EVENT viewtopic_dropdown_bottom_custom -->
             </div>
 
-            <div class="col-sm-offset-4 col-sm-1">
+            <div class="col-sm-1">
+                <!-- IF .quickmod -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{L_QUICK_MOD}">
+                        <i class="fa fa-gavel"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <!-- BEGIN quickmod -->
+                        <!-- DEFINE $QUICKMOD_AJAX = (quickmod.VALUE in ['lock', 'unlock', 'delete_topic', 'restore_topic', 'make_normal', 'make_sticky', 'make_announce', 'make_global']) -->
+                        <a href="{quickmod.LINK}" class="dropdown-item" <!-- IF $QUICKMOD_AJAX -->data-ajax="true" data-refresh="true"<!-- ENDIF -->>{quickmod.TITLE}</a>
+                        <!-- END quickmod -->
+                    </div>
+                </div>
+                <!-- ENDIF -->
+            </div>
+
+            <div class="col-sm-offset-3 col-sm-1">
                 <!-- IF TOTAL_POSTS -->
                 <span class="label label-default">{TOTAL_POSTS}</span>
                 <!-- ENDIF -->
