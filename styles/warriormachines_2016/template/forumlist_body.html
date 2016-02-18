@@ -7,12 +7,12 @@
 
 <!-- EVENT forumlist_body_category_header_before -->
 <!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW or forumrow.S_NO_CAT -->
-<div class="forabg m-y-1">
+<div class="bg-gray m-y-1 p-a-1">
     <!-- EVENT forumlist_body_category_header_row_prepend -->
-    <div class="row" style="color:#fff;">
+    <div class="row color-white">
         <div class="col-sm-6">
             <!-- IF forumrow.S_IS_CAT -->
-            <a href="{forumrow.U_VIEWFORUM}" class="text-uppercase" style="color:#fff;">{forumrow.FORUM_NAME}</a>
+            <a href="{forumrow.U_VIEWFORUM}" class="color-white text-uppercase">{forumrow.FORUM_NAME}</a>
             <!-- ELSE -->
             {L_FORUM}
             <!-- ENDIF -->
@@ -34,7 +34,7 @@
 
         <!-- IF not forumrow.S_IS_CAT -->
         <!-- EVENT forumlist_body_forum_row_before -->
-        <li class="list-group-item<!-- IF forumrow.S_ROW_COUNT is even --> list-group-item-info<!-- ENDIF -->">
+        <li class="list-group-item<!-- IF forumrow.S_ROW_COUNT is even --> bg-gray-lighter<!-- ENDIF -->">
             <!-- EVENT forumlist_body_forum_row_prepend -->
             <div class="row">
                 <div class="col-sm-6">

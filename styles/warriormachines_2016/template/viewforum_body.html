@@ -152,7 +152,7 @@
                 </div>
                 <ul class="list-group">
                     <!-- BEGIN topicrow -->
-                    <li class="list-group-item<!-- IF topicrow.S_ROW_COUNT is even --> list-group-item-warning<!-- ENDIF -->">
+                    <li class="list-group-item<!-- IF topicrow.S_ROW_COUNT is even --> bg-floralwhite<!-- ENDIF -->">
                         <div class="row">
                             <div class="col-sm-6">
                                 <!-- EVENT viewforum_body_topic_row_before -->
@@ -161,7 +161,8 @@
                                 <h5 class="list-group-item-heading"><i class="fa fa-file-text-o"></i> <a href="{topicrow.U_VIEW_TOPIC}">{topicrow.TOPIC_TITLE}</a></h5>
                                 <!-- EVENT topiclist_row_append -->
                                 <!-- EVENT viewforum_body_topic_row_append -->
-                                <!-- EVENT viewforum_body_topic_row_after --></div>
+                                <!-- EVENT viewforum_body_topic_row_after -->
+                            </div>
                             <div class="col-sm-1 text-xs-center">
                                 {topicrow.REPLIES}
                             </div>
