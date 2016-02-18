@@ -1,69 +1,88 @@
-<ul class="list-group">
-    <!-- EVENT overall_header_navbar_before -->
-
-    <!-- IF U_ACP -->
-    <li class="list-group-item">
-        <a href="{U_ACP}" title="{L_ACP}">{L_ACP_SHORT}</a>
-    </li>
-    <!-- ENDIF -->
-
-    <!-- IF U_MCP -->
-    <li class="list-group-item">
-        <a href="{U_MCP}" title="{L_MCP}">{L_MCP_SHORT}</a>
-    </li>
-    <!-- ENDIF -->
-
-    <!-- IF S_REGISTERED_USER -->
-    <li id="username_logged_in" class="rightside <!-- IF CURRENT_USER_AVATAR --> no-bulletin<!-- ENDIF -->">
+<!-- EVENT overall_header_navbar_before -->
+<!-- IF S_REGISTERED_USER -->
+<div class="card">
+    <div class="card-block text-xs-center">
+        <p class="card-text">
+            <!-- IF CURRENT_USER_AVATAR -->
+            {CURRENT_USER_AVATAR}
+            <!-- ENDIF -->
+        </p>
+        <h4 class="card-title">{CURRENT_USERNAME_SIMPLE}</h4>
+        <p class="card-text text-muted">"Born and bred to knock 'em dead"</p>
+        <a href="{U_USER_PROFILE}" class="btn btn-primary" title="{L_READ_PROFILE}">{L_READ_PROFILE}</a>
+        <!-- EVENT navbar_header_profile_list_before -->
         <!-- EVENT navbar_header_username_prepend -->
-        <div class="header-profile dropdown-container">
-            <a href="{U_PROFILE}" class="header-avatar dropdown-trigger"><!-- IF CURRENT_USER_AVATAR -->{CURRENT_USER_AVATAR} <!-- ENDIF -->{CURRENT_USERNAME_SIMPLE}</a>
-            <div class="dropdown hidden">
-                <div class="pointer">
-                    <div class="pointer-inner"></div>
-                </div>
-                <ul class="dropdown-contents" role="menu">
-                    <!-- IF U_RESTORE_PERMISSIONS -->
-                    <li class="small-icon icon-restore-permissions"><a href="{U_RESTORE_PERMISSIONS}">{L_RESTORE_PERMISSIONS}</a></li><!-- ENDIF -->
+    </div>
 
-                    <!-- EVENT navbar_header_profile_list_before -->
+    <div class="card-block">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{U_PROFILE}" class="card-link" title="{L_PROFILE}"><i class="fa fa-fw fa-tachometer"></i> {L_PROFILE}</a>
+            </li>
 
-                    <li class="small-icon icon-ucp"><a href="{U_PROFILE}" title="{L_PROFILE}" role="menuitem">{L_PROFILE}</a></li>
-                    <li class="small-icon icon-profile"><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}" role="menuitem">{L_READ_PROFILE}</a></li>
+            <!-- IF U_RESTORE_PERMISSIONS -->
+            <li class="list-group-item">
+                <a href="{U_RESTORE_PERMISSIONS}" class="card-link">{L_RESTORE_PERMISSIONS}</a>
+            </li>
+            <!-- ENDIF -->
 
-                    <!-- EVENT navbar_header_profile_list_after -->
+            <!-- IF S_NOTIFICATIONS_DISPLAY -->
+            <li class="list-group-item dropdown-container dropdown-{S_CONTENT_FLOW_END}">
+                <span class="label label-default label-pill pull-xs-right"><i class="fa fa-info-circle"></i> {NOTIFICATIONS_COUNT}</span>
+                <a href="{U_VIEW_ALL_NOTIFICATIONS}" id="notification_list_button" class="dropdown-trigger"><i class="fa fa-fw fa-exclamation-circle"></i> {L_NOTIFICATIONS}</a>
+                <!-- INCLUDE notification_dropdown.html -->
+            </li>
+            <!-- ENDIF -->
 
-                    <li class="separator"></li>
-                    <li class="small-icon icon-logout"><a href="{U_LOGIN_LOGOUT}" title="{L_LOGIN_LOGOUT}" accesskey="x" role="menuitem">{L_LOGIN_LOGOUT}</a></li>
-                </ul>
-            </div>
-        </div>
+            <!-- IF S_DISPLAY_PM -->
+            <li class="list-group-item">
+                <span class="label label-default label-pill pull-xs-right"><i class="fa fa-envelope"></i> {PRIVATE_MESSAGE_COUNT}</span>
+                <a href="{U_PRIVATEMSGS}"><i class="fa fa-fw fa-user-secret"></i> {L_PRIVATE_MESSAGES}</a>
+            </li>
+            <!-- ENDIF -->
+        </ul>
+    </div>
+
+    <p class="card-text text-xs-center">
+        <!-- IF U_ACP or U_MCP -->
+        <!-- IF U_ACP -->
+        <a href="{U_ACP}" class="card-link" title="{L_ACP}">{L_ACP_SHORT}</a>
+        <!-- ENDIF -->
+
+        <!-- IF U_MCP -->
+        <a href="{U_MCP}" class="card-link" title="{L_MCP}">{L_MCP_SHORT}</a>
+        <!-- ENDIF -->
+        <!-- ENDIF -->
+
+        <p class="card-text text-xs-center">
+            <small class="text-muted">Profile last updated 3 days ago</small>
+        </p>
+
         <!-- EVENT navbar_header_username_append -->
-    </li>
+        <!-- EVENT navbar_header_profile_list_after -->
+    </p>
+</div>
 
-    <!-- IF S_DISPLAY_PM -->
-    <li class="small-icon icon-pm rightside">
-        <a href="{U_PRIVATEMSGS}" role="menuitem"><span>{L_PRIVATE_MESSAGES} [</span><strong>{PRIVATE_MESSAGE_COUNT}</strong><span>]</span></a>
-    </li>
-    <!-- ENDIF -->
+<!-- ELSE -->
 
-    <!-- IF S_NOTIFICATIONS_DISPLAY -->
-    <li class="small-icon icon-notification dropdown-container dropdown-{S_CONTENT_FLOW_END} rightside">
-        <a href="{U_VIEW_ALL_NOTIFICATIONS}" id="notification_list_button"
-           class="dropdown-trigger"><span>{L_NOTIFICATIONS} [</span><strong>{NOTIFICATIONS_COUNT}</strong><span>]</span></a>
-        <!-- INCLUDE notification_dropdown.html -->
-    </li>
-    <!-- ENDIF -->
-
-    <!-- ELSE -->
-
-    <!-- IF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+<!-- IF S_REGISTER_ENABLED and not (S_SHOW_COPPA or S_REGISTRATION) -->
+<ul class="list-group">
     <li class="list-group-item">
         <a href="{U_REGISTER}">{L_REGISTER}</a>
     </li>
-    <!-- ENDIF -->
-
-    <!-- EVENT navbar_header_logged_out_content -->
-
-    <!-- ENDIF -->
 </ul>
+<!-- ENDIF -->
+
+<!-- EVENT navbar_header_logged_out_content -->
+
+<!-- ENDIF -->
+
+<div class="card">
+    <div class="card-header">
+        Shop talk
+    </div>
+    <div class="card-block">
+        <h4 class="card-title">Chat coming soon...</h4>
+        <p class="card-text">Stay tuned for a site-wide chat widget here.</p>
+    </div>
+</div>
