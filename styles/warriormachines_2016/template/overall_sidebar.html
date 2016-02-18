@@ -43,7 +43,7 @@
         </ul>
     </div>
 
-    <p class="card-text text-xs-center">
+    <div class="card-text text-xs-center">
         <!-- IF U_ACP or U_MCP -->
         <!-- IF U_ACP -->
         <a href="{U_ACP}" class="card-link" title="{L_ACP}">{L_ACP_SHORT}</a>
@@ -54,13 +54,9 @@
         <!-- ENDIF -->
         <!-- ENDIF -->
 
-        <p class="card-text text-xs-center">
-            <small class="text-muted">Profile last updated 3 days ago</small>
-        </p>
-
         <!-- EVENT navbar_header_username_append -->
         <!-- EVENT navbar_header_profile_list_after -->
-    </p>
+    </div>
 </div>
 
 <!-- ELSE -->
@@ -84,5 +80,19 @@
     <div class="card-block">
         <h4 class="card-title">Chat coming soon...</h4>
         <p class="card-text">Stay tuned for a site-wide chat widget here.</p>
+        <img src="http://placehold.it/350x400" class="img-fluid">
     </div>
 </div>
+
+
+<!-- IF U_WATCH_FORUM_LINK and not S_IS_BOT -->
+<ul>
+    <li class="small-icon icon-<!-- IF S_WATCHING_FORUM -->unsubscribe<!-- ELSE -->subscribe<!-- ENDIF -->" data-last-responsive="true">
+        <a href="{U_WATCH_FORUM_LINK}" title="{S_WATCH_FORUM_TITLE}"
+           data-ajax="toggle_link"
+           data-toggle-class="small-icon icon-<!-- IF not S_WATCHING_FORUM -->unsubscribe<!-- ELSE -->subscribe<!-- ENDIF -->"
+           data-toggle-text="{S_WATCH_FORUM_TOGGLE}"
+           data-toggle-url="{U_WATCH_FORUM_TOGGLE}">{S_WATCH_FORUM_TITLE}</a>
+    </li>
+</ul>
+<!-- ENDIF -->
