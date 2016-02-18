@@ -5,11 +5,15 @@
             <!-- EVENT viewforum_forum_title_before -->
             <h2 class="forum-title"><!-- EVENT viewforum_forum_name_prepend --><a href="{U_VIEW_FORUM}">{FORUM_NAME}</a><!-- EVENT viewforum_forum_name_append --></h2>
             <!-- EVENT viewforum_forum_title_after -->
+
             <!-- IF FORUM_DESC or MODERATORS or U_MCP -->
             <div>
                 <!-- IF FORUM_DESC -->
-                <div>{FORUM_DESC}<br/></div><!-- ENDIF -->
-                <!-- IF MODERATORS --><p><strong><!-- IF S_SINGLE_MODERATOR -->{L_MODERATOR}<!-- ELSE -->{L_MODERATORS}<!-- ENDIF -->{L_COLON}</strong> {MODERATORS}</p>
+                <div>{FORUM_DESC}</div>
+                <!-- ENDIF -->
+
+                <!-- IF MODERATORS -->
+                <p><strong><!-- IF S_SINGLE_MODERATOR -->{L_MODERATOR}<!-- ELSE -->{L_MODERATORS}<!-- ENDIF -->{L_COLON}</strong> {MODERATORS}</p>
                 <!-- ENDIF -->
             </div>
             <!-- ENDIF -->
@@ -128,57 +132,59 @@
 
             <!-- ENDIF -->
 
-            <div class="row">
-                <div class="col-sm-6">
-                    {L_TOPICS}
+            <div class="m-y-2">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {L_TOPICS}
+                    </div>
+                    <div class="col-sm-1 text-xs-center">
+                        {L_REPLIES}
+                    </div>
+                    <div class="col-sm-1 text-xs-center">
+                        {L_VIEWS}
+                    </div>
+                    <div class="col-sm-4">
+                        {L_LAST_POST}
+                    </div>
                 </div>
-                <div class="col-sm-1 text-xs-center">
-                    {L_REPLIES}
-                </div>
-                <div class="col-sm-1 text-xs-center">
-                    {L_VIEWS}
-                </div>
-                <div class="col-sm-4">
-                    {L_LAST_POST}
-                </div>
+                <ul class="list-group">
+                    <!-- BEGIN topicrow -->
+                    <li class="list-group-item<!-- IF topicrow.S_ROW_COUNT is even --> list-group-item-warning<!-- ENDIF -->">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- EVENT viewforum_body_topic_row_before -->
+                                <!-- EVENT viewforum_body_topic_row_prepend -->
+                                <!-- EVENT topiclist_row_prepend -->
+                                <h5 class="list-group-item-heading"><i class="fa fa-file-text-o"></i> <a href="{topicrow.U_VIEW_TOPIC}">{topicrow.TOPIC_TITLE}</a></h5>
+                                <!-- EVENT topiclist_row_append -->
+                                <!-- EVENT viewforum_body_topic_row_append -->
+                                <!-- EVENT viewforum_body_topic_row_after --></div>
+                            <div class="col-sm-1 text-xs-center">
+                                {topicrow.REPLIES}
+                            </div>
+                            <div class="col-sm-1 text-xs-center">
+                                {topicrow.VIEWS}
+                            </div>
+                            <div class="col-sm-4">
+                                {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-4">
+                                {topicrow.LAST_POST_TIME}
+                            </div>
+                        </div>
+                    </li>
+                    <!-- BEGINELSE -->
+                    <!-- IF S_IS_POSTABLE -->
+                    <strong>{L_NO_TOPICS}</strong>
+                    <!-- ENDIF -->
+                    <!-- END topicrow -->
+                </ul>
             </div>
-            <ul class="list-group">
-                <!-- BEGIN topicrow -->
-                <li class="list-group-item<!-- IF topicrow.S_ROW_COUNT is even --> list-group-item-warning<!-- ENDIF -->">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <!-- EVENT viewforum_body_topic_row_before -->
-                            <!-- EVENT viewforum_body_topic_row_prepend -->
-                            <!-- EVENT topiclist_row_prepend -->
-                            <h5 class="list-group-item-heading"><i class="fa fa-file-text-o"></i> <a href="{topicrow.U_VIEW_TOPIC}">{topicrow.TOPIC_TITLE}</a></h5>
-                            <!-- EVENT topiclist_row_append -->
-                            <!-- EVENT viewforum_body_topic_row_append -->
-                            <!-- EVENT viewforum_body_topic_row_after --></div>
-                        <div class="col-sm-1 text-xs-center">
-                            {topicrow.REPLIES}
-                        </div>
-                        <div class="col-sm-1 text-xs-center">
-                            {topicrow.VIEWS}
-                        </div>
-                        <div class="col-sm-4">
-                            {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
-                        </div>
-                        <div class="col-sm-offset-2 col-sm-4">
-                            {topicrow.LAST_POST_TIME}
-                        </div>
-                    </div>
-                </li>
-                <!-- BEGINELSE -->
-                <!-- IF S_IS_POSTABLE -->
-                <strong>{L_NO_TOPICS}</strong>
-                <!-- ENDIF -->
-                <!-- END topicrow -->
-            </ul>
 
             <!-- IF S_SELECT_SORT_DAYS and not S_DISPLAY_ACTIVE -->
             <form method="post" action="{S_FORUM_ACTION}">

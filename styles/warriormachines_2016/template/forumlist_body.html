@@ -1,0 +1,96 @@
+<!-- BEGIN forumrow -->
+<!-- IF (forumrow.S_IS_CAT and not forumrow.S_FIRST_ROW) or forumrow.S_NO_CAT -->
+</ul>
+
+</div>
+<!-- ENDIF -->
+
+<!-- EVENT forumlist_body_category_header_before -->
+<!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW or forumrow.S_NO_CAT -->
+<div class="forabg m-y-1">
+    <ul class="list-group">
+        <!-- ENDIF -->
+        <!-- EVENT forumlist_body_category_header_after -->
+
+        <!-- IF not forumrow.S_IS_CAT -->
+        <!-- EVENT forumlist_body_forum_row_before -->
+        <!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW or forumrow.S_NO_CAT -->
+        <li class="list-group-item">
+            <!-- EVENT forumlist_body_category_header_row_prepend -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <!-- IF forumrow.S_IS_CAT -->
+                    <a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a>
+                    <!-- ELSE -->
+                    {L_FORUM}
+                    <!-- ENDIF -->
+                </div>
+                <div class="col-sm-1 text-xs-center">
+                    {L_TOPICS}
+                </div>
+                <div class="col-sm-1 text-xs-center">
+                    {L_POSTS}
+                </div>
+                <div class="col-sm-4">
+                    {L_LAST_POST}
+                </div>
+            </div>
+            <!-- EVENT forumlist_body_category_header_row_append -->
+        </li>
+        <!-- ENDIF -->
+        <li class="list-group-item<!-- IF forumrow.S_ROW_COUNT is even --> list-group-item-info<!-- ENDIF -->">
+            <!-- EVENT forumlist_body_forum_row_prepend -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5 class="list-group-item-heading"><i class="fa fa-folder-open"></i> <a href="{forumrow.U_VIEWFORUM}">{forumrow.FORUM_NAME}</a></h5>
+                    <!-- IF forumrow.FORUM_DESC -->{forumrow.FORUM_DESC}<!-- ENDIF -->
+                </div>
+                <div class="col-sm-1 text-xs-center">
+                    {forumrow.TOPICS}
+                </div>
+                <div class="col-sm-1 text-xs-center">
+                    {forumrow.POSTS}
+                </div>
+                <div class="col-sm-4">
+                    <!-- IF forumrow.CLICKS -->
+                    {L_REDIRECTS}{L_COLON} {forumrow.CLICKS}
+                    <!-- ELSEIF not forumrow.S_IS_LINK -->
+
+                    <!-- IF forumrow.S_DISPLAY_SUBJECT -->
+                    <!-- EVENT forumlist_body_last_post_title_prepend -->
+                    <div>
+                        <a href="{forumrow.U_LAST_POST}" title="{forumrow.LAST_POST_SUBJECT}">{forumrow.LAST_POST_SUBJECT_TRUNCATED}</a>
+                        <!-- IF not S_IS_BOT -->
+                        <a href="{forumrow.U_LAST_POST}">{LAST_POST_IMG}</a>
+                        <!-- ENDIF -->
+                    </div>
+                    <!-- ENDIF -->
+
+                    <!-- IF forumrow.LAST_POST_TIME -->
+                    <div>
+                        {L_POST_BY_AUTHOR} {forumrow.LAST_POSTER_FULL}
+                    </div>
+                    <div>
+                        {forumrow.LAST_POST_TIME}
+                    </div>
+                    <!-- ELSE -->
+                    {L_NO_POSTS}
+                    <!-- ENDIF -->
+                    <!-- ENDIF -->
+                </div>
+            </div>
+            <!-- EVENT forumlist_body_forum_row_append -->
+        </li>
+        <!-- EVENT forumlist_body_forum_row_after -->
+        <!-- ENDIF -->
+
+        <!-- IF forumrow.S_LAST_ROW -->
+    </ul>
+
+</div>
+<!-- EVENT forumlist_body_last_row_after -->
+<!-- ENDIF -->
+
+<!-- BEGINELSE -->
+<strong>{L_NO_FORUMS}</strong>
+<!-- END forumrow -->
