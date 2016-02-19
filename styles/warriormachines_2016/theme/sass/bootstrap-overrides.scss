@@ -1,2 +1,8 @@
 // Override Bootstrap variables in `node_modules/bootstrap/scss/_variables.scss` file.
 $enable-flex: true;
+
+// Override selector in `node_modules/bootstrap/scss/_pagination.scss` file.
+.pagination {
+  margin-top: 0;
+  margin-bottom: 0;
+}
