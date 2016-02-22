@@ -1,0 +1,40 @@
+<!-- INCLUDE overall_header.html -->
+
+<h1>{L_JOINED_DATE_FORMAT}</h1>
+<p>{L_JOINED_DATE_FORMAT_EXPLAIN}</p>
+
+<form id="logsearches" method="post" action="{U_ACTION}">
+
+
+
+	<fieldset>
+		<legend>{L_SEARCH_LOG_OPTIONS}</legend>
+
+		<dl>
+			<dt><label for="joined_dateformat_viewtopic">{L_VIEWTOPIC_FORMAT}{L_COLON}</label><br /><span>{L_VIEWTOPIC_FORMAT_EXPLAIN}</span></dt>
+			<dd><label>{FORMAT_VIEWTOPIC}</label></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="joined_dateformat_memberlist">{L_MEMBERLIST_FORMAT}{L_COLON}</label><br /><span>{L_MEMBERLIST_FORMAT_EXPLAIN}</span></dt>
+			<dd><label>{FORMAT_MEMBERLIST}</label></dd>
+		</dl>
+
+		<dl>
+			<dt><label for="joined_dateformat_profile">{L_PROFILE_FORMAT}{L_COLON}</label><br /><span>{L_PROFILE_FORMAT_EXPLAIN}</span></dt>
+			<dd><label>{FORMAT_PROFILE}</label></dd>
+		</dl>
+
+	</fieldset>
+
+	<fieldset>
+		<legend>{L_ACP_SUBMIT_CHANGES}</legend>
+		<p class="submit-buttons">
+			<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+			<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+		</p>
+		{S_FORM_TOKEN}
+	</fieldset>
+</form>
+
+<!-- INCLUDE overall_footer.html -->
