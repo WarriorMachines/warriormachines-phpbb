@@ -159,6 +159,9 @@
                                 <!-- EVENT viewforum_body_topic_row_prepend -->
                                 <!-- EVENT topiclist_row_prepend -->
                                 <h5 class="list-group-item-heading"><i class="fa fa-file-text-o"></i> <a href="{topicrow.U_VIEW_TOPIC}">{topicrow.TOPIC_TITLE}</a></h5>
+                                <div>
+                                    {L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
+                                </div>
                                 <!-- EVENT topiclist_row_append -->
                                 <!-- EVENT viewforum_body_topic_row_append -->
                                 <!-- EVENT viewforum_body_topic_row_after -->
@@ -170,15 +173,8 @@
                                 {topicrow.VIEWS}
                             </div>
                             <div class="col-sm-4">
-                                {L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                {L_POST_BY_AUTHOR} {topicrow.TOPIC_AUTHOR_FULL} &raquo; {topicrow.FIRST_POST_TIME}
-                            </div>
-                            <div class="col-sm-offset-2 col-sm-4">
-                                {topicrow.LAST_POST_TIME}
+                                <div>{L_POST_BY_AUTHOR} {topicrow.LAST_POST_AUTHOR_FULL}</div>
+                                <div>{topicrow.LAST_POST_TIME}</div>
                             </div>
                         </div>
                     </li>
