@@ -1,0 +1,10 @@
+.lastpostavatar img {
+    margin-right: 4px;
+    float: left;
+}
+
+.rtl .lastpostavatar img {
+    margin-right: 0px;
+    margin-left: 4px;
+    float: right;
+}
