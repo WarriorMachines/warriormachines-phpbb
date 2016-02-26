@@ -16,6 +16,7 @@ dependencies:
     - sudo pip install --upgrade awscli && aws --version
 
   post:
+    - ./node_modules/.bin/gulp fonts
     - ./node_modules/.bin/gulp --production
 
 test:
