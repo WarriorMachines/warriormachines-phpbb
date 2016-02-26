@@ -15,6 +15,9 @@ dependencies:
 
     - sudo pip install --upgrade awscli && aws --version
 
+  post:
+    - ./node_modules/.bin/gulp --production
+
 test:
   pre:
     - docker build --tag="warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM" ./
