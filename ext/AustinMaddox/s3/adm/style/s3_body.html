@@ -5,7 +5,11 @@
 <form id="acp_board" method="post" action="{U_ACTION}">
     <fieldset>
         <dl>
-            <dt><label for="s3_aws_access_key_id">{L_ACP_S3_AWS_ACCESS_KEY_ID}</label></dt>
+            <dt>
+                <label for="s3_aws_access_key_id">{L_ACP_S3_AWS_ACCESS_KEY_ID}</label>
+                <br>
+                <span>{L_ACP_S3_AWS_ACCESS_KEY_ID_EXPLAIN}</span>
+            </dt>
             <dd><input type="text" id="s3_aws_access_key_id" name="s3_aws_access_key_id" value="{S3_AWS_ACCESS_KEY_ID}"></dd>
         </dl>
 
@@ -17,4 +21,5 @@
         {S_FORM_TOKEN}
     </fieldset>
 </form>
+
 <!-- INCLUDE overall_footer.html -->

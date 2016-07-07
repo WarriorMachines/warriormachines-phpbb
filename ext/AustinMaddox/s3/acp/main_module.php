@@ -15,8 +15,9 @@ class main_module
 
     function main($id, $mode)
     {
-        global $db, $user, $auth, $template, $cache, $request;
-        global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+//        global $db, $user, $auth, $template, $cache, $request;
+//        global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+        global $config, $request, $template, $user;
 
         $user->add_lang('acp/common');
         $this->tpl_name = 's3_body';
@@ -28,7 +29,7 @@ class main_module
                 trigger_error('FORM_INVALID');
             }
 
-            $config->set('s3_aws_access_key_id', $request->variable('s3_aws_access_key_id', 0));
+            $config->set('s3_aws_access_key_id', $request->variable('s3_aws_access_key_id', ''));
 
             trigger_error($user->lang('ACP_S3_SETTING_SAVED') . adm_back_link($this->u_action));
         }

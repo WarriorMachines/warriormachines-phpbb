@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Event listener
  */
-class listener implements EventSubscriberInterface
+class main_listener implements EventSubscriberInterface
 {
     /** @var \phpbb\config\config */
     protected $config;
@@ -41,7 +41,7 @@ class listener implements EventSubscriberInterface
      * @param \phpbb\template\template $template Template object
      * @param \phpbb\user              $user     User object
      *
-     * @return \AustinMaddox\s3\event\listener
+     * @return \AustinMaddox\s3\event\main_listener
      * @access public
      */
     public function __construct(\phpbb\config\config $config, \phpbb\template\template $template, \phpbb\user $user)
@@ -73,7 +73,6 @@ class listener implements EventSubscriberInterface
     {
         return [
             'core.user_setup'                => 'user_setup',
-            'core.acp_board_config_edit_add' => 'acp_board_config_edit_add',
             'core.modify_uploaded_file'      => 'modify_uploaded_file',
             'core.validate_config_variable'  => 'validate_config_variable',
         ];
@@ -88,44 +87,6 @@ class listener implements EventSubscriberInterface
         ];
         $event['lang_set_ext'] = $lang_set_ext;
     }
-
-    /**
-     * Add config vars to ACP Board Settings
-     *
-     * @param object $event The event object
-     *
-     * @return null
-     * @access public
-     */
-    public function acp_board_config_edit_add($event)
-    {
-        // Load language file.
-        $this->user->add_lang_ext('AustinMaddox/s3', 's3_acp');
-
-        // Add a config to the settings mode, after board_timezone.
-        if ($event['mode'] == 'settings' && isset($event['display_vars']['vars']['board_timezone'])) {
-            // Store display_vars event in a local variable
-            $display_vars = $event['display_vars'];
-
-            // Define the new config vars.
-            $s3_config_vars = [
-                's3_aws_access_key_id' => [
-                    'lang'     => 'ACP_S3_AWS_ACCESS_KEY_ID',
-                    'validate' => 's3_aws_access_key_id',
-                    'type'     => 'text:40:20',
-                    'explain'  => true,
-                ],
-            ];
-
-            // Add the new config vars after board_timezone in the display_vars config array.
-            $insert_after = ['after' => 'board_timezone'];
-            $display_vars['vars'] = phpbb_insert_config_array($display_vars['vars'], $s3_config_vars, $insert_after);
-
-            // Update the display_vars event with the new array
-            $event['display_vars'] = $display_vars;
-        }
-    }
-
 
     /**
      * Validate the AWS Access Key Id
