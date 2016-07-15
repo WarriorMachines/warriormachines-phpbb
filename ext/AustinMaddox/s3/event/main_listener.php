@@ -72,9 +72,9 @@ class main_listener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return [
-            'core.user_setup'                => 'user_setup',
-            'core.modify_uploaded_file'      => 'modify_uploaded_file',
-            'core.validate_config_variable'  => 'validate_config_variable',
+            'core.user_setup'               => 'user_setup',
+            'core.modify_uploaded_file'     => 'modify_uploaded_file',
+            'core.validate_config_variable' => 'validate_config_variable',
         ];
     }
 
@@ -117,21 +117,28 @@ class main_listener implements EventSubscriberInterface
 
     public function modify_uploaded_file($event)
     {
-        $this->log->debug('##############################################');
         $this->log->debug(__METHOD__);
         $this->log->debug('##############################################');
 
+        global $phpbb_root_path, $config;
+
+        $filedata = $event['filedata'];
+        $this->log->debug(print_r($filedata, true));
+
         $result = null;
-        $key = time();
-        $data = 'path/to/file.png';
+        $path_parts = pathinfo($filedata['real_filename']);
+        $key = uniqid(md5($path_parts['filename'])) . '.' . $filedata['extension'];
+        $body = file_get_contents($phpbb_root_path . $config['upload_path'] . '/' . $filedata['physical_filename']);
 
         try {
-            $result = $this->s3_client->upload($this->bucket, $key, $data, 'public-read');
+            $result = $this->s3_client->upload($this->bucket, $key, $body, 'public-read');
         } catch (MultipartUploadException $e) {
             $this->log->debug('MultipartUpload Failed', [$e->getMessage()]);
         }
 
         $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
+
+        // TODO: Maybe write this $object_url in place of the `physical_filename` in the `phpbb_attachments` db table?
         $this->log->debug($object_url);
     }
 }
