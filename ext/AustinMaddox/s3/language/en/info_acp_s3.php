@@ -35,7 +35,11 @@ if (empty($lang) || !is_array($lang)) {
 //
 
 $lang = array_merge($lang, [
-    'ACP_S3_AWS_ACCESS_KEY_ID'         => 'S3 AWS Access Key Id',
-    'ACP_S3_AWS_ACCESS_KEY_ID_EXPLAIN' => 'Enter your AWS Access Key Id for S3, e.g.: <samp>AKIAIOSFODNN71234567</samp>.',
+    'ACP_S3_AWS_ACCESS_KEY_ID'         => 'AWS Access Key Id',
+    'ACP_S3_AWS_ACCESS_KEY_ID_EXPLAIN' => 'Enter your AWS Access Key Id for S3, e.g.: <samp>AKIAIOSFODNN7EXAMPLE</samp>.',
     'ACP_S3_AWS_ACCESS_KEY_ID_INVALID' => '“%s” is not a valid AWS Access Key Id.',
+
+    'ACP_S3_AWS_SECRET_ACCESS_KEY'         => 'AWS Secret Access Key',
+    'ACP_S3_AWS_SECRET_ACCESS_KEY_EXPLAIN' => 'Enter your AWS Secret Access Key for S3, e.g.: <samp>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</samp>.',
+    'ACP_S3_AWS_SECRET_ACCESS_KEY_INVALID' => '“%s” is not a valid AWS Secret Access Key.',
 ]);

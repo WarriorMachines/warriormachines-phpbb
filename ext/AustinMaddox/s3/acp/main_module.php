@@ -30,13 +30,15 @@ class main_module
             }
 
             $config->set('s3_aws_access_key_id', $request->variable('s3_aws_access_key_id', ''));
+            $config->set('s3_aws_secret_access_key', $request->variable('s3_aws_secret_access_key', ''));
 
             trigger_error($user->lang('ACP_S3_SETTING_SAVED') . adm_back_link($this->u_action));
         }
 
         $template->assign_vars([
-            'U_ACTION'             => $this->u_action,
-            'S3_AWS_ACCESS_KEY_ID' => $config['s3_aws_access_key_id'],
+            'U_ACTION'                 => $this->u_action,
+            'S3_AWS_ACCESS_KEY_ID'     => $config['s3_aws_access_key_id'],
+            'S3_AWS_SECRET_ACCESS_KEY' => $config['s3_aws_secret_access_key'],
         ]);
     }
 }
