@@ -65,9 +65,11 @@ class main_listener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return [
-            'core.user_setup'               => 'user_setup',
-            'core.modify_uploaded_file'     => 'modify_uploaded_file',
-            'core.validate_config_variable' => 'validate_config_variable',
+            'core.user_setup'                               => 'user_setup',
+            'core.validate_config_variable'                 => 'validate_config_variable',
+            'core.modify_uploaded_file'                     => 'modify_uploaded_file',
+            'core.delete_attachments_from_filesystem_after' => 'delete_attachments_from_filesystem_after',
+            'core.posting_modify_message_text'              => 'posting_modify_message_text',
         ];
     }
 
@@ -113,14 +115,13 @@ class main_listener implements EventSubscriberInterface
         global $phpbb_root_path, $config;
 
         $filedata = $event['filedata'];
+        $key = $filedata['physical_filename'];
+        $file_path = $phpbb_root_path . $config['upload_path'] . '/' . $filedata['physical_filename'];
+        $body = file_get_contents($file_path);
 
         $result = null;
-        $path_parts = pathinfo($filedata['real_filename']);
-        $key = uniqid(md5($path_parts['filename'])) . '.' . $filedata['extension'];
-        $body = file_get_contents($phpbb_root_path . $config['upload_path'] . '/' . $filedata['physical_filename']);
-
         try {
-            $result = $this->s3_client->upload($this->bucket, $key, $body, 'public-read');
+            $result = $this->s3_client->upload($this->bucket, $key, $body, 'public-read', ['params' => ['ContentType' => $filedata['mimetype']]]);
         } catch (MultipartUploadException $e) {
             error_log('MultipartUpload Failed', [$e->getMessage()]);
         }
@@ -128,5 +129,24 @@ class main_listener implements EventSubscriberInterface
         $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
 
         error_log($object_url);
+    }
+
+    public function delete_attachments_from_filesystem_after($event)
+    {
+        foreach ($event['physical'] as $physical_file) {
+            $result = $this->s3_client->deleteObject([
+                'Bucket' => $this->bucket,
+                'Key'    => $physical_file['filename'],
+            ]);
+            error_log(print_r($result, true));
+        }
+    }
+
+    public function posting_modify_message_text($event)
+    {
+        error_log(__METHOD__);
+        error_log('##############################################');
+
+        error_log(print_r($event['post_data'], true));
     }
 }
