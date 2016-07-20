@@ -11,8 +11,6 @@ namespace AustinMaddox\s3\event;
 
 use Aws\Exception\MultipartUploadException;
 use Aws\S3\S3Client;
-use Monolog\Handler\ErrorLogHandler;
-use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -30,7 +28,6 @@ class main_listener implements EventSubscriberInterface
     protected $user;
 
     protected $bucket;
-    protected $log;
     protected $region;
     protected $s3_client;
 
@@ -49,10 +46,6 @@ class main_listener implements EventSubscriberInterface
         $this->config = $config;
         $this->template = $template;
         $this->user = $user;
-
-        // TODO: Remove logging after dev/debug.
-        $this->log = new Logger('phpbb');
-        $this->log->pushHandler(new ErrorLogHandler(ErrorLogHandler::OPERATING_SYSTEM, Logger::DEBUG));
 
         $this->region = 'us-west-2';
         $this->bucket = 'warriormachines-phpbb-files';
@@ -117,13 +110,9 @@ class main_listener implements EventSubscriberInterface
 
     public function modify_uploaded_file($event)
     {
-        $this->log->debug(__METHOD__);
-        $this->log->debug('##############################################');
-
         global $phpbb_root_path, $config;
 
         $filedata = $event['filedata'];
-        $this->log->debug(print_r($filedata, true));
 
         $result = null;
         $path_parts = pathinfo($filedata['real_filename']);
@@ -133,12 +122,11 @@ class main_listener implements EventSubscriberInterface
         try {
             $result = $this->s3_client->upload($this->bucket, $key, $body, 'public-read');
         } catch (MultipartUploadException $e) {
-            $this->log->debug('MultipartUpload Failed', [$e->getMessage()]);
+            error_log('MultipartUpload Failed', [$e->getMessage()]);
         }
 
         $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
 
-        // TODO: Maybe write this $object_url in place of the `physical_filename` in the `phpbb_attachments` db table?
-        $this->log->debug($object_url);
+        error_log($object_url);
     }
 }
