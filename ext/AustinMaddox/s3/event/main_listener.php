@@ -70,6 +70,7 @@ class main_listener implements EventSubscriberInterface
             'core.modify_uploaded_file'                     => 'modify_uploaded_file',
             'core.delete_attachments_from_filesystem_after' => 'delete_attachments_from_filesystem_after',
             'core.posting_modify_message_text'              => 'posting_modify_message_text',
+            'core.parse_attachments_modify_template_data'   => 'parse_attachments_modify_template_data',
         ];
     }
 
@@ -142,11 +143,27 @@ class main_listener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Failed attempt at catching deletes of `is_orphan` attachments.
+     * https://www.phpbb.com/community/viewtopic.php?f=461&t=2380221
+     *
+     * @param $event
+     */
     public function posting_modify_message_text($event)
     {
         error_log(__METHOD__);
         error_log('##############################################');
 
         error_log(print_r($event['post_data'], true));
+    }
+
+    public function parse_attachments_modify_template_data($event)
+    {
+//        error_log(print_r($event['attachment'], true));
+//        error_log(print_r($event['block_array'], true));
+
+        $block_array = $event['block_array'];
+        $block_array['THUMB_IMAGE'] = 'http://' . $this->bucket . '.s3.amazonaws.com/' . $event['attachment']['physical_filename'];
+        $event['block_array'] = $block_array;
     }
 }
