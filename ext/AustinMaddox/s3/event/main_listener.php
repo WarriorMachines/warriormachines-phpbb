@@ -111,20 +111,12 @@ class main_listener implements EventSubscriberInterface
         global $phpbb_root_path;
 
         $filedata = $event['filedata'];
+        error_log(print_r($filedata, true));
+
+        // Fullsize
         $key = $filedata['physical_filename'];
-        $file_path = $phpbb_root_path . $this->config['upload_path'] . '/' . $filedata['physical_filename'];
-        $body = file_get_contents($file_path);
-
-        $result = null;
-        try {
-            $result = $this->s3_client->upload($this->config['s3_bucket'], $key, $body, 'public-read', ['params' => ['ContentType' => $filedata['mimetype']]]);
-        } catch (MultipartUploadException $e) {
-            error_log('MultipartUpload Failed', [$e->getMessage()]);
-        }
-
-        $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
-
-        error_log($object_url);
+        $body = file_get_contents($phpbb_root_path . $this->config['upload_path'] . '/' . $key);
+        $this->uploadFileToS3($key, $body, $filedata['mimetype']);
     }
 
     public function delete_attachments_from_filesystem_after($event)
@@ -154,11 +146,39 @@ class main_listener implements EventSubscriberInterface
 
     public function parse_attachments_modify_template_data($event)
     {
+        global $phpbb_root_path;
 //        error_log(print_r($event['attachment'], true));
 //        error_log(print_r($event['block_array'], true));
 
+        // TODO: Existence on S3 check.
+        // Upload thumbnail to S3.
+        $attachment = $event['attachment'];
+        $key = 'thumb_' . $attachment['physical_filename'];
+        $body = file_get_contents($phpbb_root_path . $this->config['upload_path'] . '/' . $key);
+        $this->uploadFileToS3($key, $body, $attachment['mimetype']);
+
         $block_array = $event['block_array'];
-        $block_array['THUMB_IMAGE'] = 'http://' . $this->config['s3_bucket'] . '.s3.amazonaws.com/' . $event['attachment']['physical_filename'];
+        $block_array['THUMB_IMAGE'] = 'http://' . $this->config['s3_bucket'] . '.s3.amazonaws.com/thumb_' . $attachment['physical_filename'];
+        $block_array['U_DOWNLOAD_LINK'] = 'http://' . $this->config['s3_bucket'] . '.s3.amazonaws.com/' . $attachment['physical_filename'];
         $event['block_array'] = $block_array;
+    }
+
+    /**
+     * @param $key
+     * @param $body
+     * @param $content_type
+     */
+    private function uploadFileToS3($key, $body, $content_type)
+    {
+        $result = null;
+        try {
+            $result = $this->s3_client->upload($this->config['s3_bucket'], $key, $body, 'public-read', ['params' => ['ContentType' => $content_type]]);
+        } catch (MultipartUploadException $e) {
+            error_log('MultipartUpload Failed', [$e->getMessage()]);
+        }
+
+        $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
+
+        error_log($object_url);
     }
 }
