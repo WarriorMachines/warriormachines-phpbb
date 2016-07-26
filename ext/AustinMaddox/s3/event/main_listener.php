@@ -27,8 +27,6 @@ class main_listener implements EventSubscriberInterface
     /** @var \phpbb\user */
     protected $user;
 
-    protected $bucket;
-    protected $region;
     protected $s3_client;
 
     /**
@@ -47,9 +45,6 @@ class main_listener implements EventSubscriberInterface
         $this->template = $template;
         $this->user = $user;
 
-        $this->region = 'us-west-2';
-        $this->bucket = 'warriormachines-phpbb-files';
-
         // Instantiate an AWS S3 client.
         $this->s3_client = new S3Client([
             'credentials' => [
@@ -57,7 +52,7 @@ class main_listener implements EventSubscriberInterface
                 'secret' => $this->config['s3_aws_secret_access_key'],
             ],
             'debug'       => false,
-            'region'      => $this->region,
+            'region'      => $this->config['s3_region'],
             'version'     => 'latest',
         ]);
     }
@@ -113,16 +108,16 @@ class main_listener implements EventSubscriberInterface
 
     public function modify_uploaded_file($event)
     {
-        global $phpbb_root_path, $config;
+        global $phpbb_root_path;
 
         $filedata = $event['filedata'];
         $key = $filedata['physical_filename'];
-        $file_path = $phpbb_root_path . $config['upload_path'] . '/' . $filedata['physical_filename'];
+        $file_path = $phpbb_root_path . $this->config['upload_path'] . '/' . $filedata['physical_filename'];
         $body = file_get_contents($file_path);
 
         $result = null;
         try {
-            $result = $this->s3_client->upload($this->bucket, $key, $body, 'public-read', ['params' => ['ContentType' => $filedata['mimetype']]]);
+            $result = $this->s3_client->upload($this->config['s3_bucket'], $key, $body, 'public-read', ['params' => ['ContentType' => $filedata['mimetype']]]);
         } catch (MultipartUploadException $e) {
             error_log('MultipartUpload Failed', [$e->getMessage()]);
         }
@@ -136,7 +131,7 @@ class main_listener implements EventSubscriberInterface
     {
         foreach ($event['physical'] as $physical_file) {
             $result = $this->s3_client->deleteObject([
-                'Bucket' => $this->bucket,
+                'Bucket' => $this->config['s3_bucket'],
                 'Key'    => $physical_file['filename'],
             ]);
             error_log(print_r($result, true));
@@ -163,7 +158,7 @@ class main_listener implements EventSubscriberInterface
 //        error_log(print_r($event['block_array'], true));
 
         $block_array = $event['block_array'];
-        $block_array['THUMB_IMAGE'] = 'http://' . $this->bucket . '.s3.amazonaws.com/' . $event['attachment']['physical_filename'];
+        $block_array['THUMB_IMAGE'] = 'http://' . $this->config['s3_bucket'] . '.s3.amazonaws.com/' . $event['attachment']['physical_filename'];
         $event['block_array'] = $block_array;
     }
 }

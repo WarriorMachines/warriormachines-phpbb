@@ -24,6 +24,24 @@
             <dd><input type="text" id="s3_aws_secret_access_key" name="s3_aws_secret_access_key" value="{S3_AWS_SECRET_ACCESS_KEY}" maxlength="255" size="50"></dd>
         </dl>
 
+        <dl>
+            <dt>
+                <label for="s3_region">{L_ACP_S3_REGION}</label>
+                <br>
+                <span>{L_ACP_S3_REGION_EXPLAIN}</span>
+            </dt>
+            <dd><input type="text" id="s3_region" name="s3_region" value="{S3_REGION}" maxlength="255" size="30"></dd>
+        </dl>
+
+        <dl>
+            <dt>
+                <label for="s3_bucket">{L_ACP_S3_BUCKET}</label>
+                <br>
+                <span>{L_ACP_S3_BUCKET_EXPLAIN}</span>
+            </dt>
+            <dd><input type="text" id="s3_bucket" name="s3_bucket" value="{S3_BUCKET}" maxlength="255" size="30"></dd>
+        </dl>
+
         <p class="submit-buttons">
             <input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}"/>&nbsp;
             <input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}"/>
