@@ -106,12 +106,16 @@ class main_listener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Event to modify uploaded file before submit to the post
+     *
+     * @param $event
+     */
     public function modify_uploaded_file($event)
     {
         global $phpbb_root_path;
 
         $filedata = $event['filedata'];
-        error_log(print_r($filedata, true));
 
         // Fullsize
         $key = $filedata['physical_filename'];
@@ -119,6 +123,11 @@ class main_listener implements EventSubscriberInterface
         $this->uploadFileToS3($key, $body, $filedata['mimetype']);
     }
 
+    /**
+     * Perform additional actions after attachment(s) deletion from the filesystem
+     *
+     * @param $event
+     */
     public function delete_attachments_from_filesystem_after($event)
     {
         foreach ($event['physical'] as $physical_file) {
@@ -126,11 +135,12 @@ class main_listener implements EventSubscriberInterface
                 'Bucket' => $this->config['s3_bucket'],
                 'Key'    => $physical_file['filename'],
             ]);
-            error_log(print_r($result, true));
         }
     }
 
     /**
+     * This event allows you to modify message text before parsing
+     *
      * Failed attempt at catching deletes of `is_orphan` attachments.
      * https://www.phpbb.com/community/viewtopic.php?f=461&t=2380221
      *
@@ -138,24 +148,30 @@ class main_listener implements EventSubscriberInterface
      */
     public function posting_modify_message_text($event)
     {
-        error_log(__METHOD__);
-        error_log('##############################################');
-
-        error_log(print_r($event['post_data'], true));
+//        error_log(__METHOD__);
+//        error_log(print_r($event['post_data'], true));
     }
 
+    /**
+     * Use this event to modify the attachment template data.
+     *
+     * This event is triggered once per attachment.
+     *
+     * @param $event
+     */
     public function parse_attachments_modify_template_data($event)
     {
         global $phpbb_root_path;
-//        error_log(print_r($event['attachment'], true));
-//        error_log(print_r($event['block_array'], true));
 
-        // TODO: Existence on S3 check.
-        // Upload thumbnail to S3.
         $attachment = $event['attachment'];
         $key = 'thumb_' . $attachment['physical_filename'];
-        $body = file_get_contents($phpbb_root_path . $this->config['upload_path'] . '/' . $key);
-        $this->uploadFileToS3($key, $body, $attachment['mimetype']);
+
+        // Existence on S3 check. Since this method runs on every page load, we don't want to upload the thumbnail multiple times.
+        if (!$this->s3_client->doesObjectExist($this->config['s3_bucket'], $key)) {
+            // Upload *only* the thumbnail to S3.
+            $body = file_get_contents($phpbb_root_path . $this->config['upload_path'] . '/' . $key);
+            $this->uploadFileToS3($key, $body, $attachment['mimetype']);
+        }
 
         $block_array = $event['block_array'];
         $block_array['THUMB_IMAGE'] = 'http://' . $this->config['s3_bucket'] . '.s3.amazonaws.com/thumb_' . $attachment['physical_filename'];
@@ -164,6 +180,8 @@ class main_listener implements EventSubscriberInterface
     }
 
     /**
+     * Upload the attachment to the AWS S3 bucket.
+     *
      * @param $key
      * @param $body
      * @param $content_type
@@ -176,9 +194,7 @@ class main_listener implements EventSubscriberInterface
         } catch (MultipartUploadException $e) {
             error_log('MultipartUpload Failed', [$e->getMessage()]);
         }
-
-        $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
-
-        error_log($object_url);
+//        $object_url = ($result['ObjectURL']) ? $result['ObjectURL'] : $result['Location'];
+//        error_log($object_url);
     }
 }
