@@ -9,7 +9,7 @@ machine:
 checkout:
   post:
     - git clone https://github.com/WarriorMachines/omnificent.git
-    - chmod u+x ./omnificent/AWS/ECS/deploy.sh
+    - chmod u+x ./omnificent/AWS/ECS/deploy.sh ./omnificent/AWS/ECS/cleanup-docker-images.sh
 
 dependencies:
   pre:
