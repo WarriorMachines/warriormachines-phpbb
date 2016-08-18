@@ -28,14 +28,14 @@ dependencies:
 
 test:
   pre:
-    - docker build --tag="warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM" ./
     - docker build --tag="warriormachines/warriormachines-phpbb:latest" ./
 
 deployment:
   production:
     branch: [master]
     commands:
-      - docker push warriormachines/warriormachines-phpbb:v$CIRCLE_BUILD_NUM
       - docker push warriormachines/warriormachines-phpbb:latest
+
+      - ./omnificent/AWS/ECS/cleanup-docker-images.sh us-west-2 web-production-cluster $CIRCLE_USERNAME $CIRCLE_PROJECT_USERNAME $CIRCLE_PROJECT_REPONAME $CIRCLE_BRANCH $CIRCLE_BUILD_NUM
 
       - ./omnificent/AWS/ECS/deploy.sh latest web-production-cluster us-west-2 warriormachines-laravel-production-service ./omnificent/AWS/ECS/task-definitions/warriormachines-laravel/warriormachines-laravel-production-task-definition.json warriormachines-laravel-production-task-definition warriormachines-laravel-production-task-definition
