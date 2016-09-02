@@ -1,12 +1,12 @@
 {
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.2",
-    "font-awesome": "^4.5.0",
-    "tether": "^1.1.1"
+    "bootstrap": "4.0.0-alpha.2",
+    "font-awesome": "4.5.0",
+    "tether": "1.1.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sass": "^2.2.0"
+    "gulp": "3.9.1",
+    "gulp-sass": "2.2.0"
   }
 }
